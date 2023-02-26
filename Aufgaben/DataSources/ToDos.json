@@ -1,0 +1,174 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crfce_todos",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crfce_todo",
+    "MaxGetRowsCount": 500,
+    "Name": "ToDos",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Erstellt von",
+      "createdby": "Created By",
+      "createdon": "Erstellt am",
+      "createdonbehalfby": "Created By (Delegate)",
+      "crfce_anhang": "Anhang",
+      "crfce_beschreibung": "Beschreibung",
+      "crfce_fallig": "Fällig",
+      "crfce_fortschritt": "Fortschritt",
+      "crfce_Kategorie": "Kategorie",
+      "crfce_name": "Titel",
+      "crfce_prioritat": "Priorität",
+      "crfce_privat": "Privat",
+      "crfce_status": "Status (crfce_status)",
+      "crfce_termin": "Termin",
+      "crfce_todo_AsyncOperations": "Systemaufträge",
+      "crfce_todo_BulkDeleteFailures": "Massenlöschungsfehler",
+      "crfce_todo_FileAttachments": "FileAttachments",
+      "crfce_todo_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "crfce_todo_ProcessSession": "Prozesssitzungen",
+      "crfce_todoid": "ToDo",
+      "crfce_Zustaendig": "Zuständig",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status (statecode)",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "ToDos",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "ToDos (Ansichten)",
+    "Name": "_crfce_todo_views",
+    "RelatedEntityName": "ToDos",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0209473e-dc5b-4886-9f68-b5205935f3aa": "Inactive ToDos",
+      "1e55d75e-1c1b-4c30-8211-0fb507222cc1": "ToDo Advanced Find View",
+      "75f860ee-15f1-4910-ae72-6507da2812dc": "Active ToDos",
+      "c26914c2-87db-452c-be0e-040c4932bd4d": "ToDo Lookup View",
+      "c6638e62-8633-4df9-b571-3a2453b8421d": "ToDo Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status",
+    "Name": "crfce_status",
+    "OptionSetInfoNameMapping": {
+      "672940000": "Angelegt",
+      "672940001": "Angenommen",
+      "672940002": "Abgelehnt",
+      "672940003": "Begonnen",
+      "672940004": "Erledigt",
+      "672940005": "Verworfen"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crfce_fortschritt",
+        "OptionSetReferenceEntityName": "ToDos"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "crfce_status",
+        "OptionSetReferenceEntityName": "ToDos"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "crfce_fortschritt",
+    "RelatedEntityName": "ToDos",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Privat (ToDos)",
+    "Name": "crfce_todo_crfce_privat",
+    "OptionSetInfoNameMapping": {
+      "0": "Nein",
+      "1": "Ja"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crfce_privat",
+        "OptionSetReferenceEntityName": "ToDos"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "crfce_privat",
+    "RelatedEntityName": "ToDos",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (ToDos)",
+    "Name": "crfce_todo_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "ToDos"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "ToDos",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (ToDos)",
+    "Name": "crfce_todo_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "ToDos"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "ToDos",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Priorität",
+    "Name": "msdyn_flow_approval_priority",
+    "OptionSetInfoNameMapping": {
+      "192350000": "Dringend",
+      "192350001": "Wichtig",
+      "192350002": "Mäßig",
+      "192350003": "Niedrig"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "crfce_prioritat",
+        "OptionSetReferenceEntityName": "ToDos"
+      }
+    },
+    "OptionSetTypeKey": "MultiSelectPicklistType",
+    "RelatedColumnInvariantName": "crfce_prioritat",
+    "RelatedEntityName": "ToDos",
+    "Type": "OptionSetInfo"
+  }
+]

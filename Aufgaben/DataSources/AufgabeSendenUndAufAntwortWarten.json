@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "31332163-b9af-4c94-8614-934a6e6bba93",
+    "Name": "AufgabeSendenUndAufAntwortWarten",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "37522bbb-08b2-ed11-83fe-0022489fdfbd"
+  }
+]

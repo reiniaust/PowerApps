@@ -1,0 +1,97 @@
+{
+  "00e37819-8644-47e7-90ed-d9753f879e83": {
+    "connectionParameters": {
+      "sku": "Enterprise",
+      "token:grantType": "code"
+    },
+    "connectionRef": {
+      "apiTier": "Premium",
+      "bypassConsent": true,
+      "displayName": "Microsoft Dataverse",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1618/1.0.1618.3179/commondataserviceforapps/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_commondataserviceforapps",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "a071a2f1-f13d-493a-9f72-ab46b5322b5d"
+    ],
+    "id": "00e37819-8644-47e7-90ed-d9753f879e83"
+  },
+  "49cfbe1b-54bc-4eae-a03d-66d6af14996e": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Genehmigungen",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1599/1.0.1599.3017/approvals/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_approvals",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "a071a2f1-f13d-493a-9f72-ab46b5322b5d"
+    ],
+    "id": "49cfbe1b-54bc-4eae-a03d-66d6af14996e"
+  },
+  "a071a2f1-f13d-493a-9f72-ab46b5322b5d": {
+    "connectionParameters": {
+      "workFlowCallbackUri": "https://prod-19.westeurope.logic.azure.com:443/workflows/2ab380c73efe40f586f4520c2966a98d/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YRgf4TrbrqvG-95-W6WqkJXPKB55fJUcHI_DTVeX1kA",
+      "workflowEndpoint": "/subscriptions/be4c2756-6fa8-4d1b-91ba-70dc75410b5a/resourceGroups/0d04f3a67ede4572a7468a422191d062-98a6cb60c0a0e6c1abed9eee655ed650-env/providers/Microsoft.Logic/workflows/0e9765aa-7a85-fe95-4778-ceb4eac5762b",
+      "workflowEntityId": "37522bbb-08b2-ed11-83fe-0022489fdfbd",
+      "workflowName": "0e9765aa-7a85-fe95-4778-ceb4eac5762b",
+      "workflowPath": "/subscriptions/be4c2756-6fa8-4d1b-91ba-70dc75410b5a/resourceGroups/0d04f3a67ede4572a7468a422191d062-98a6cb60c0a0e6c1abed9eee655ed650-env/providers/Microsoft.Logic/workflows/0e9765aa-7a85-fe95-4778-ceb4eac5762b"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logik-Flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1615/1.0.1615.3163/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "00e37819-8644-47e7-90ed-d9753f879e83": {
+          "value": "shared_commondataserviceforapps"
+        },
+        "49cfbe1b-54bc-4eae-a03d-66d6af14996e": {
+          "value": "shared_approvals"
+        },
+        "workflowEntityId": {
+          "value": "37522bbb-08b2-ed11-83fe-0022489fdfbd"
+        },
+        "workflowName": {
+          "value": "0e9765aa-7a85-fe95-4778-ceb4eac5762b"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_approvals": {
+          "value": "49cfbe1b-54bc-4eae-a03d-66d6af14996e"
+        },
+        "shared_commondataserviceforapps": {
+          "value": "00e37819-8644-47e7-90ed-d9753f879e83"
+        },
+        "workflowEntityId": {
+          "value": "37522bbb-08b2-ed11-83fe-0022489fdfbd"
+        },
+        "workflowName": {
+          "value": "0e9765aa-7a85-fe95-4778-ceb4eac5762b"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "AufgabeSendenUndAufAntwortWarten"
+    ],
+    "dependencies": {
+      "shared_approvals": "49cfbe1b-54bc-4eae-a03d-66d6af14996e",
+      "shared_commondataserviceforapps": "00e37819-8644-47e7-90ed-d9753f879e83"
+    },
+    "dependents": [],
+    "id": "a071a2f1-f13d-493a-9f72-ab46b5322b5d"
+  }
+}

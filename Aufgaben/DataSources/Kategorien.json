@@ -1,0 +1,100 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crfce_kategories",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crfce_kategorie",
+    "MaxGetRowsCount": 500,
+    "Name": "Kategorien",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "crfce_crfce_kategorie_Hauptkategorie_crfce_kate": "Kategorien (crfce_crfce_kategorie_Hauptkategorie_crfce_kate)",
+      "crfce_crfce_kategorie_Verknuepfung_crfce_katego": "Kategorien (crfce_crfce_kategorie_Verknuepfung_crfce_katego)",
+      "crfce_crfce_todo_Kategorie_crfce_kategorie": "ToDos",
+      "crfce_Hauptkategorie": "Hauptkategorie",
+      "crfce_kategorie_AsyncOperations": "Systemaufträge",
+      "crfce_kategorie_BulkDeleteFailures": "Massenlöschungsfehler",
+      "crfce_kategorie_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "crfce_kategorie_ProcessSession": "Prozesssitzungen",
+      "crfce_kategorieid": "Kategorie",
+      "crfce_name": "Name",
+      "crfce_pfad": "Pfad",
+      "crfce_pfadundname": "Pfad und Name",
+      "crfce_Verknuepfung": "Verknüpfung",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Kategorien",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Kategorien (Ansichten)",
+    "Name": "_crfce_kategorie_views",
+    "RelatedEntityName": "Kategorien",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1803a97f-fa1c-4363-b050-1a6f33fda80b": "Kategorie Associated View",
+      "3b396344-e863-43e8-99da-7e77259b6aa8": "Kategorie Advanced Find View",
+      "63ed1d61-026e-439d-aaba-a75c5aa1dbdc": "Active Kategorien",
+      "a232de4e-17d9-479f-a82a-04c51bd618cb": "Inactive Kategorien",
+      "f0e69f3d-aa7a-4eed-adb3-9bb1eaf18893": "Kategorie Lookup View"
+    }
+  },
+  {
+    "DisplayName": "Status (Kategorien)",
+    "Name": "crfce_kategorie_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Kategorien"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Kategorien",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Kategorien)",
+    "Name": "crfce_kategorie_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Kategorien"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Kategorien",
+    "Type": "OptionSetInfo"
+  }
+]

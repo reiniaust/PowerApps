@@ -1,0 +1,93 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "crfce_fortschrittsstufens",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "crfce_fortschrittsstufen",
+    "MaxGetRowsCount": 500,
+    "Name": "Fortschrittsstufen",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "crfce_fortschrittsstufen_AsyncOperations": "Systemaufträge",
+      "crfce_fortschrittsstufen_BulkDeleteFailures": "Massenlöschungsfehler",
+      "crfce_fortschrittsstufen_PrincipalObjectAttributeAccesses": "Sicherer Feldzugriff",
+      "crfce_fortschrittsstufen_ProcessSession": "Prozesssitzungen",
+      "crfce_fortschrittsstufenid": "Fortschrittsstufen",
+      "crfce_name": "Name",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Fortschrittsstufen",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Fortschrittsstufen (Ansichten)",
+    "Name": "_crfce_fortschrittsstufen_views",
+    "RelatedEntityName": "Fortschrittsstufen",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "5893c8a9-fd64-4dc8-bd74-22f1124e636f": "Fortschrittsstufen Associated View",
+      "624d4781-773e-4b27-bd22-b33db27827aa": "Fortschrittsstufen Lookup View",
+      "c475678a-18f4-4877-8411-444c9361646e": "Inactive Fortschrittsstufens",
+      "d2dcd0e3-21d7-403a-8f9f-747257138b06": "Active Fortschrittsstufens",
+      "f7b966a8-0ce7-49b7-b23c-60285690e1e8": "Fortschrittsstufen Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (Fortschrittsstufen)",
+    "Name": "crfce_fortschrittsstufen_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Fortschrittsstufen"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Fortschrittsstufen",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Fortschrittsstufen)",
+    "Name": "crfce_fortschrittsstufen_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Fortschrittsstufen"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Fortschrittsstufen",
+    "Type": "OptionSetInfo"
+  }
+]

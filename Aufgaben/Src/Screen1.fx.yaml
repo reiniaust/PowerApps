@@ -1,0 +1,1542 @@
+"Screen1 As screen.'teamsHeroApp_ver1.0'":
+    LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    OnVisible: |-
+        =UpdateContext({ varStyle: { topBarHeight:52, topBarTitleSize:12, topBarTitleLeftPadding:12, topBarIconRightPadding:12, topBarTitleLeftPaddingWithButton:8, iconSize:16, largeIconSize:50, iconPadding:12, spaceBetweenIcons:8, deletePageSideMargins:200, galleryBarHeight:70, searchBarHeight:32, deleteTextHeight:120, deleteConfirmButtonHeight:40, iconButtonFill:RGBA(0,0,0,0.2), iconButtonSmallWidth:30, iconFill: ColorValue("#6264A7"), dividerFill: ColorValue("#EAE9E8"), formLabelFontSize: 10.5, focusBorderColor: ColorValue("#000000"), focusBorderThickness: 2, borderStyle: BorderStyle.Dashed }});
+
+    LeftContainer1 As groupContainer:
+        Height: =Parent.Height
+        Visible: =Self.Width <> 0
+        Width: =Switch(Parent.Size, ScreenSize.Small, If(Or(newMode, editMode, itemSelected), 0, Parent.Width), 280)
+        ZIndex: =2
+
+        BrowseGallery1 As gallery.BrowseLayout_Vertical_TwoTextVariant_pcfCore:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Default: =CurrentItem
+            DelayItemLoading: =true
+            DisplayMode: =If(Or(newMode,editMode,deleteMode), DisplayMode.Disabled, DisplayMode.Edit)
+            FocusedBorderColor: =RGBA(98, 100, 167, 1)
+            FocusedBorderThickness: =2
+            Height: =494
+            Items: |-
+                =Sort(
+                    Filter(
+                        Filter(
+                            Filter(
+                                Filter(
+                                    ToDos,
+                                    IsBlank(Privat) Or !Privat Or 'Created By'.Benutzername = User().Email
+                                ),
+                                Fortschritt in ComboBox2.SelectedItems
+                            ),
+                            First(Split(TextBox_Suchen.Value, " ")).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
+                            And Last(Split(TextBox_Suchen.Value, " ")).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
+                        ),
+                        If(
+                            Checkbox_selber_zuständig.Checked,
+                            User().FullName in Zuständig.'Display Name' Or IsBlank(Zuständig),
+                            true
+                        )
+                    ),
+                    Termin
+                )
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =UpdateContext({ itemSelected: true, CurrentItem: ThisItem })
+            TabIndex: =0
+            TemplateFill: =If(Self.IsSelected, RGBA(0,0,0,0.05), RGBA(0,0,0,0))
+            TemplatePadding: =0
+            TemplateSize: =48
+            Width: =Parent.Width
+            Y: =274
+            ZIndex: =1
+
+            Rectangle2 As rectangle:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0,0,0,0)
+                Fill: |-
+                    =If(
+                        ThisItem.Termin < Today(),
+                        Red,
+                        If(
+                            ThisItem.Termin >= Today() And ThisItem.Termin < DateAdd(
+                                Today(),
+                                1,
+                                Days
+                            ),
+                            Yellow,
+                            If(
+                                ThisItem.Termin > Today() And ThisItem.Termin < DateAdd(
+                                    Today(),
+                                    2,
+                                    Days
+                                ),
+                                Green,
+                                Transparent
+                            )
+                        )
+                    )
+                FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                Height: =Parent.TemplateHeight
+                HoverFill: =RGBA(0,0,0,0)
+                OnSelect: =Select(Parent)
+                PressedFill: =RGBA(0,0,0,0)
+                TabIndex: =0
+                Width: =Parent.TemplateWidth
+                ZIndex: =1
+
+            Title2 As Beschriftung:
+                DisplayMode: =DisplayMode.Edit
+                FontSize: =10.5
+                FontWeight: =FontWeight.Semibold
+                Height: =24
+                OnSelect: =Select(Parent)
+                PCFTeamsTheme: =TeamsTheme.Default
+                TabIndex: =-1
+                Text: =ThisItem.Kategorie.'Pfad und Name'
+                VerticalAlignment: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 24
+                X: =12
+                Y: =((Parent.TemplateHeight - 36) / 2) - 4
+                ZIndex: =2
+
+            Subtitle2 As Beschriftung:
+                Color: |-
+                    =/*
+                    If(
+                        Not ThisItem.Erledigt And ThisItem.Termin < Today();
+                        Red;
+                        If(
+                            ThisItem.Termin >= Today() And ThisItem.Termin < DateAdd(
+                                Today();
+                                1;
+                                Days
+                            );
+                            GreenYellow;
+                            If(
+                                ThisItem.Termin > Today() And ThisItem.Termin < DateAdd(
+                                    Today();
+                                    2;
+                                    Days
+                                );
+                                Green
+                            )
+                        )
+                    )
+                    */
+                DisplayMode: =DisplayMode.Edit
+                FontSize: =9
+                FontWeight: |-
+                    =If(ThisItem.Fortschritt = Status.Angelegt, FontWeight.Bold, FontWeight.Normal)
+                    //If(ThisItem.Termin >= Today() And ThisItem.Termin <= DateAdd(Today(); 1; Days); FontWeight.Bold; FontWeight.Normal)
+                Height: =24
+                OnSelect: =Select(Parent)
+                PCFTeamsTheme: =TeamsTheme.Default
+                TabIndex: =-1
+                Text: |
+                    =//If(ThisItem.Erledigt; "Erledigt: "; "") &
+                    Text(ThisItem.Termin, DateTimeFormat.ShortDate) & " " & ThisItem.Titel & 
+                    If(IsBlankOrError(ThisItem.Zuständig.'Display Name'),""," > " & ThisItem.Zuständig.'Display Name')
+                VerticalAlignment: =VerticalAlign.Top
+                Width: =Title2.Width
+                X: =Title2.X
+                Y: =Title2.Y + Title2.Height - 6
+                ZIndex: =3
+
+        TopBar_LeftContainer1 As groupContainer:
+            Height: =varStyle.topBarHeight
+            Width: =Parent.Width
+            ZIndex: =3
+
+            AppNameLabel1 As label:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =2
+                Color: =RGBA(51, 51, 51, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FocusedBorderThickness: =4
+                Font: =Font.'Segoe UI'
+                Height: =Parent.Height
+                Role: =TextRole.Heading1
+                Size: =13
+                Text: ="Aufgaben"
+                Width: =Parent.Width - varStyle.topBarTitleLeftPadding
+                X: =varStyle.topBarTitleLeftPadding
+                ZIndex: =4
+
+        LeftControlContainer1 As groupContainer:
+            Height: =varStyle.topBarHeight
+            Width: =Parent.Width
+            Y: =TopBar_LeftContainer1.Y + TopBar_LeftContainer1.Height
+            ZIndex: =5
+
+            IconButton_Add1 As groupContainer:
+                Height: =varStyle.searchBarHeight
+                Width: =Parent.Width -  varStyle.topBarIconRightPadding
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =6
+
+                IconButton_Add_Icon1 As icon.Add:
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    Color: =RGBA(0, 120, 212, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(220, 220, 220, 1)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    DisplayMode: =If(Or(newMode,editMode,deleteMode), DisplayMode.Disabled, DisplayMode.Edit)
+                    FocusedBorderThickness: =4
+                    Height: =varStyle.largeIconSize
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverFill: =RGBA(0, 0, 0, 0)
+                    Icon: =Icon.Add
+                    PaddingBottom: =varStyle.iconPadding
+                    PaddingTop: =varStyle.iconPadding
+                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                    PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedFill: =RGBA(0, 0, 0, 0)
+                    Width: =varStyle.largeIconSize - 2 * varStyle.iconPadding
+                    X: =12
+                    Y: =(Parent.Height -  Self.Height) / 2
+                    ZIndex: =7
+
+                IconButton_Add_Label1 As label:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisplayMode: =If(Or(newMode,editMode,deleteMode), DisplayMode.Disabled, DisplayMode.Edit)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    Height: =Parent.Height
+                    Size: =13
+                    Text: ="Neuer Datensatz"
+                    Width: =Parent.Width - IconButton_Add_Icon1.X - IconButton_Add_Icon1.Width
+                    X: =IconButton_Add_Icon1.X + IconButton_Add_Icon1.Width
+                    ZIndex: =8
+
+                TouchTarget_New1 As rectangle:
+                    AccessibleLabel: =Self.Tooltip
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    DisabledFill: =RGBA(166, 166, 166, 1)
+                    DisplayMode: =If(Or(newMode,editMode,deleteMode), DisplayMode.Disabled, DisplayMode.Edit)
+                    Fill: =RGBA(0, 120, 212, 0.5)
+                    FocusedBorderColor: =varStyle.focusBorderColor
+                    FocusedBorderThickness: =4
+                    Height: =Parent.Height
+                    HoverFill: =RGBA(0, 120, 212, 1)
+                    OnSelect: |-
+                        =NewForm(EditForm1); UpdateContext({newMode: true});
+                    PressedFill: =RGBA(45, 85, 255, 1)
+                    TabIndex: =0
+                    Tooltip: ="Neuer Datensatz"
+                    Width: =Parent.Width
+                    ZIndex: =9
+
+        TextBox_Suchen As Textfeld:
+            DisplayMode: =DisplayMode.Edit
+            Height: =30
+            PCFTeamsTheme: =TeamsTheme.Default
+            Placeholder: ="Suchen"
+            Value: =""
+            Width: =Parent.Width - varStyle.topBarIconRightPadding
+            X: =0
+            Y: =173
+            ZIndex: =7
+
+        Checkbox_selber_zuständig As Kontrollkästchen:
+            Checked: =true
+            DisplayMode: =DisplayMode.Edit
+            Height: =32
+            Label: ="Selber zuständig"
+            PCFTeamsTheme: =TeamsTheme.Default
+            Width: =240
+            X: =14
+            Y: =220
+            ZIndex: =8
+
+        ComboBox2 As Kombinationsfeld.pcfdataset:
+            AllowMultiSelect: =true
+            DefaultSelectedItems: =Filter(Choices(Status), Value = Status.Angelegt Or Value = Status.Angenommen Or Value = Status.Begonnen)
+            DisplayMode: =DisplayMode.Edit
+            Height: =30
+            Items: =Choices(Status)
+            PCFTeamsTheme: =TeamsTheme.Default
+            Width: =Parent.Width //- varStyle.topBarIconRightPadding
+            X: =0
+            Y: =123
+            ZIndex: =9
+
+            Status1 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Status"
+                FieldName: ="crfce_status"
+                FieldType: ="l"
+                FieldVariantName: ="textualColumn"
+                Order: =12
+                ZIndex: =37
+
+            Fortschritt1 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Fortschritt"
+                FieldName: ="crfce_fortschritt"
+                FieldType: ="l"
+                FieldVariantName: ="textualColumn"
+                Order: =14
+                ZIndex: =38
+
+            Fällig1 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Fällig"
+                FieldName: ="crfce_fallig"
+                FieldType: ="d"
+                FieldVariantName: ="textualColumn"
+                Order: =18
+                ZIndex: =39
+
+            Value2 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Value"
+                FieldName: ="Value"
+                FieldType: ="l"
+                FieldVariantName: ="textualColumn"
+                Order: =10
+                ZIndex: =40
+
+    LeftRightDivider1 As rectangle:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        DisabledFill: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(0, 120, 212, 1)
+        FocusedBorderColor: =RGBA(98, 100, 167, 1)
+        FocusedBorderThickness: =4
+        Height: =Parent.Height
+        HoverFill: =RGBA(0, 120, 212, 1)
+        PressedFill: =RGBA(0, 120, 212, 1)
+        Width: =1
+        X: =LeftContainer1.Width
+        ZIndex: =11
+
+    RightContainer1 As groupContainer:
+        Height: =Parent.Height
+        Visible: =Self.Width <> 0
+        Width: =Parent.Width - Self.X
+        X: =LeftContainer1.Width
+        ZIndex: =12
+
+        TopBar_RightContainer1 As groupContainer:
+            Height: =varStyle.topBarHeight
+            Width: =Parent.Width
+            ZIndex: =13
+
+            TimerCancel1 As timer:
+                BorderColor: =RGBA(0, 120, 212, 1)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(244, 244, 244, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Duration: =200
+                Fill: =RGBA(0, 120, 212, 1)
+                Font: =Font.'Segoe UI'
+                Height: =0
+                HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnTimerEnd: =SetFocus(IconButton_Cancel1)
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                Start: =Or(editMode, newMode)
+                TabIndex: =-1
+                Text: =""
+                Visible: =false
+                Width: =0
+                ZIndex: =14
+
+            TimerDeleteCancelled1 As timer:
+                BorderColor: =RGBA(0, 120, 212, 1)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(244, 244, 244, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Duration: =200
+                Fill: =RGBA(0, 120, 212, 1)
+                Font: =Font.'Segoe UI'
+                Height: =0
+                HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnTimerEnd: |-
+                    =SetFocus(IconButton_Delete1); UpdateContext({deleteCancelled:false});
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                Start: =deleteCancelled
+                TabIndex: =-1
+                Text: =""
+                Visible: =false
+                Width: =0
+                ZIndex: =15
+
+            IconButton_Back1 As icon.ChevronLeft:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(0, 120, 212, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =varStyle.focusBorderColor
+                FocusedBorderThickness: =4
+                Height: =varStyle.largeIconSize
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.ChevronLeft
+                OnSelect: |-
+                    =UpdateContext({itemSelected:false})
+                PaddingBottom: =varStyle.iconPadding
+                PaddingLeft: =varStyle.iconPadding
+                PaddingRight: =varStyle.iconPadding
+                PaddingTop: =varStyle.iconPadding
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                TabIndex: =0
+                Tooltip: ="Zurück"
+                Visible: =If(App.ActiveScreen.Size = ScreenSize.Small, And(!editMode, !newMode, !deleteMode), false)
+                Width: =varStyle.largeIconSize
+                X: =varStyle.topBarTitleLeftPadding
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =20
+
+            IconButton_Delete1 As icon.Trash:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(0, 120, 212, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =varStyle.focusBorderColor
+                FocusedBorderThickness: =4
+                Height: =varStyle.largeIconSize
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Trash
+                OnSelect: |-
+                    =UpdateContext({deleteMode:true, deleteCancelled:false, selectedRecord: BrowseGallery1.Selected })
+                PaddingBottom: =varStyle.iconPadding
+                PaddingLeft: =varStyle.iconPadding
+                PaddingRight: =varStyle.iconPadding
+                PaddingTop: =varStyle.iconPadding
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                TabIndex: =0
+                Tooltip: ="Löschen"
+                Visible: =And(!editMode, !newMode, !deleteMode)
+                Width: =varStyle.largeIconSize
+                X: =IconButton_Edit1.X - varStyle.spaceBetweenIcons - Self.Width
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =22
+
+            IconButton_Edit1 As icon.Edit:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(0, 120, 212, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =varStyle.focusBorderColor
+                FocusedBorderThickness: =4
+                Height: =varStyle.largeIconSize
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Edit
+                OnSelect: |-
+                    =UpdateContext({selectedRecord: BrowseGallery1.Selected, editMode:true})
+                PaddingBottom: =varStyle.iconPadding
+                PaddingLeft: =varStyle.iconPadding
+                PaddingRight: =varStyle.iconPadding
+                PaddingTop: =varStyle.iconPadding
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                TabIndex: =0
+                Tooltip: ="Bearbeiten"
+                Visible: =And(!editMode, !newMode, !deleteMode)
+                Width: =varStyle.largeIconSize
+                X: =Parent.Width - Self.Width - varStyle.topBarTitleLeftPadding
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =23
+
+            IconButton_Cancel1 As icon.Cancel:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(0, 120, 212, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =varStyle.focusBorderColor
+                FocusedBorderThickness: =4
+                Height: =varStyle.largeIconSize
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Cancel
+                OnSelect: |-
+                    =ResetForm(EditForm1); UpdateContext({editMode: false, newMode: false});
+                PaddingBottom: =varStyle.iconPadding
+                PaddingLeft: =varStyle.iconPadding
+                PaddingRight: =varStyle.iconPadding
+                PaddingTop: =varStyle.iconPadding
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                TabIndex: =0
+                Tooltip: ="Abbrechen"
+                Visible: =Or(editMode, newMode)
+                Width: =varStyle.largeIconSize
+                X: =IconButton_Accept1.X - varStyle.spaceBetweenIcons - Self.Width
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =24
+
+            IconButton_Accept1 As icon.Check:
+                AccessibleLabel: =Self.Tooltip
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(0, 120, 212, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderColor: =varStyle.focusBorderColor
+                FocusedBorderThickness: =4
+                Height: =varStyle.largeIconSize
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Check
+                OnSelect: =SubmitForm(EditForm1)
+                PaddingBottom: =varStyle.iconPadding
+                PaddingLeft: =varStyle.iconPadding
+                PaddingRight: =varStyle.iconPadding
+                PaddingTop: =varStyle.iconPadding
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                TabIndex: =0
+                Tooltip: ="Datensatz speichern"
+                Visible: =Or(editMode, newMode)
+                Width: =varStyle.largeIconSize
+                X: =Parent.Width - Self.Width - varStyle.topBarTitleLeftPadding
+                Y: =(Parent.Height -  Self.Height) / 2
+                ZIndex: =25
+
+        DeleteConfirmOverlay1 As groupContainer:
+            Height: =Parent.Height
+            Visible: =If(deleteMode, true, false)
+            Width: =Parent.Width
+            X: =(Parent.Width - Self.Width) / 2
+            Y: =(Parent.Height - Self.Height) / 2
+            ZIndex: =16
+
+            TimerSetFocus1 As timer:
+                BorderColor: =RGBA(0, 120, 212, 1)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(244, 244, 244, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Duration: =If(LeftContainer1.Width = 0, 2500, 200)
+                Fill: =RGBA(0, 120, 212, 1)
+                Font: =Font.'Segoe UI'
+                Height: =0
+                HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnTimerEnd: =SetFocus(DeleteCancelBtn1)
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                Start: =deleteMode
+                TabIndex: =-1
+                Text: =""
+                Visible: =false
+                Width: =0
+                ZIndex: =17
+
+            TimerShowDeleteText1 As timer:
+                BorderColor: =RGBA(0, 120, 212, 1)
+                BorderStyle: =BorderStyle.None
+                DisabledBorderColor: =RGBA(244, 244, 244, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Duration: =200
+                Fill: =RGBA(0, 120, 212, 1)
+                Font: =Font.'Segoe UI'
+                Height: =0
+                HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnTimerEnd: |-
+                    =UpdateContext({deletePromptString:"Möchten Sie diesen Datensatz wirklich löschen?"})
+                OnTimerStart: |-
+                    =UpdateContext({deletePromptString:""})
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                Start: =deleteMode
+                TabIndex: =-1
+                Text: =""
+                Visible: =false
+                Width: =0
+                ZIndex: =18
+
+            DeleteText1 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(0, 0, 0, 0)
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =2
+                Color: =RGBA(51, 51, 51, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FocusedBorderThickness: =4
+                Font: =Font.'Segoe UI'
+                Height: =120
+                Live: =Live.Assertive
+                Size: =13
+                Text: =deletePromptString
+                Width: =Min(350, Parent.Width * 0.8) 
+                X: =(Parent.Width - Self.Width) / 2
+                Y: =(Parent.Height - (Self.Height + varStyle.iconPadding + DeleteConfirmBtn1.Height)) / 2
+                ZIndex: =19
+
+            DeleteConfirmBtn1 As button:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(0, 120, 212, 1)
+                FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =32
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnSelect: |-
+                    =Remove(ToDos, selectedRecord); If(IsEmpty(Errors(ToDos, selectedRecord)), UpdateContext( { CurrentItem: First(ToDos), itemSelected:false, editMode:false, newMode:false, deleteMode:false}));
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =15
+                Text: ="Löschen"
+                Width: =96
+                X: =(Parent.Width - (Self.Width * 2 + varStyle.iconPadding)) / 2 + DeleteCancelBtn1.Width + varStyle.iconPadding
+                Y: =DeleteText1.Y + DeleteText1.Height+varStyle.iconPadding
+                ZIndex: =26
+
+            DeleteCancelBtn1 As button:
+                BorderColor: =RGBA(0, 0, 0, 0)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                Fill: =RGBA(0, 120, 212, 1)
+                FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+                Font: =Font.'Segoe UI'
+                FontWeight: =FontWeight.Semibold
+                Height: =32
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+                OnSelect: |-
+                    =UpdateContext({deleteMode:false, deleteCancelled:true})
+                PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -50%)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =15
+                Text: ="Abbrechen"
+                Width: =96
+                X: =(Parent.Width - (Self.Width * 2 + varStyle.iconPadding)) / 2
+                Y: =DeleteText1.Y + DeleteText1.Height+varStyle.iconPadding
+                ZIndex: =27
+
+        EditForm1 As form:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            DataSource: =ToDos
+            DefaultMode: =If(newMode, FormMode.New, If(editMode, FormMode.Edit, FormMode.View))
+            Height: =RightContainer1.Height - TopBar_RightContainer1.Height
+            Item: =If(BrowseGallery1.DisplayMode = DisplayMode.Disabled, selectedRecord, BrowseGallery1.Selected)
+            NumberOfColumns: =1
+            OnFailure: =Notify("Kann nicht gespeichert werden. Überprüfen Sie, ob Fehler im Formular vorhanden sind.",NotificationType.Error)
+            OnSuccess: |
+                =// Speichern
+                UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
+                
+                Set(name, Substitute(CurrentItem.Zuständig.'Display Name', " ", "."));
+                If(name = "Reinhard.Austermeier", Set(name, "Reinhard"));
+                Set(zustaendigMail, name & "@reinhardaustermeier.onmicrosoft.com");
+                
+                If(!IsBlank(CurrentItem.Zuständig) And CurrentItem.Fortschritt = Status.Angelegt And (zustaendigMail <> User().Email),
+                    AufgabeSendenUndAufAntwortWarten.Run(
+                        CurrentItem.Kategorie.'Pfad und Name' & ": " & CurrentItem.Titel, 
+                        zustaendigMail,
+                        If(IsBlank(CurrentItem.Beschreibung),"",CurrentItem.Beschreibung),
+                        CurrentItem.ToDo
+                    );
+                )
+                // 'PowerApp->NachrichtineinemChatoderKanalveröffentlichen'.Run()
+            Visible: =!deleteMode
+            Width: =Parent.Width
+            Y: =TopBar_RightContainer1.Y + TopBar_RightContainer1.Height
+            ZIndex: =21
+
+            Kategorie_DataCard1 As typedDataCard.pcfCoreComboBoxEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_Kategorie"
+                Default: =ThisItem.Kategorie
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_Kategorie")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue5.Selected
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+                DataCardKey6 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue5 As combobox:
+                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Erforderlich.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =Parent.Default
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["crfce_pfadundname"]
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                    Font: =Font.'Segoe UI'
+                    Height: =32
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    Items: =Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', Ascending)
+                    PaddingLeft: =12
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["crfce_pfadundname"]
+                    SearchItems: =Search(Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', Ascending),DataCardValue5.SearchText,"crfce_pfadundname")
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey6.Y + DataCardKey6.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage6 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue5.Y + DataCardValue5.Height
+                    ZIndex: =3
+
+                StarVisible6 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =20
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey6.Y
+                    ZIndex: =4
+
+            Zuständig_DataCard1 As typedDataCard.pcfCoreComboBoxEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_Zustaendig"
+                Default: =ThisItem.Zuständig
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_Zustaendig")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue6.Selected
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =3
+                ZIndex: =1
+
+                DataCardKey7 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue6 As combobox:
+                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Erforderlich.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =Parent.Default
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["displayname"]
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                    Font: =Font.'Segoe UI'
+                    Height: =32
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    Items: =Choices([@ToDos].crfce_Zustaendig)
+                    PaddingLeft: =12
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["displayname"]
+                    SearchItems: =Search(Choices([@ToDos].crfce_Zustaendig),DataCardValue6.SearchText,"displayname")
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey7.Y + DataCardKey7.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage7 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue6.Y + DataCardValue6.Height
+                    ZIndex: =3
+
+                StarVisible7 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =20
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey7.Y
+                    ZIndex: =4
+
+            Termin_DataCard1 As typedDataCard.pcfCoreDateTimeEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_termin"
+                Default: =If(newMode, Today(), ThisItem.Termin)
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_termin")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =true
+                Update: =Date(Year(DateValue1.Value), Month(DateValue1.Value), Day(DateValue1.Value)) + Time(Value(HourValue1.Selected.Value), Value(MinuteValue1.Selected.Value), Value(Second(DateValue1.Value)))
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =4
+                ZIndex: =1
+
+                DataCardKey2 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DateValue1 As Datumsauswahl:
+                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Erforderlich.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                    DisplayMode: =Parent.DisplayMode
+                    Height: =32
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Tooltip: =Parent.DisplayName
+                    Value: =Parent.Default
+                    Width: =(Parent.Width - 48) / 2
+                    X: =24
+                    Y: =DataCardKey2.Y + DataCardKey2.Height + 4
+                    ZIndex: =2
+
+                HourValue1 As combobox:
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =[Text(Hour(Parent.Default),"00")]
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["Value"]
+                    DisplayMode: =Parent.DisplayMode
+                    Font: =Font.'Segoe UI'
+                    Height: =28
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsSearchable: =false
+                    Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =[]
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =DateValue1.Width / 2 - 10
+                    X: =DateValue1.X + DateValue1.Width + 10
+                    Y: =DateValue1.Y + 1
+                    ZIndex: =3
+
+                Separator1 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =10.5
+                    Height: =HourValue1.Height
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: |-
+                        =":"
+                    VerticalAlignment: =VerticalAlign.Middle
+                    Width: =10
+                    X: =HourValue1.X + HourValue1.Width
+                    Y: =HourValue1.Y
+                    ZIndex: =4
+
+                MinuteValue1 As combobox:
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =[Text(Minute(Parent.Default),"00")]
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["Value"]
+                    DisplayMode: =Parent.DisplayMode
+                    Font: =Font.'Segoe UI'
+                    Height: =28
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsSearchable: =false
+                    Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =[]
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =HourValue1.Width
+                    X: =HourValue1.X + HourValue1.Width + Separator1.Width
+                    Y: =HourValue1.Y + 1
+                    ZIndex: =5
+
+                ErrorMessage2 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DateValue1.Y + DateValue1.Height
+                    ZIndex: =6
+
+                StarVisible2 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =20
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey2.Y
+                    ZIndex: =7
+
+            Fortschritt_DataCard1 As typedDataCard.pcfCoreComboBoxOptionSetSingleEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_fortschritt"
+                Default: =ThisItem.Fortschritt
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_fortschritt")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue4.Selected.Value
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =5
+                ZIndex: =1
+
+                DataCardKey5 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue4 As combobox:
+                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Erforderlich.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =[Parent.Default]
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["Value"]
+                    DisplayMode: =Parent.DisplayMode
+                    Font: =Font.'Segoe UI'
+                    Height: =32
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsSearchable: =false
+                    Items: =Choices(Status)
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =[]
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey5.Y + DataCardKey5.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage5 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue4.Y + DataCardValue4.Height
+                    ZIndex: =3
+
+                StarVisible5 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =20
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey5.Y
+                    ZIndex: =4
+
+            Privat_DataCard1 As typedDataCard.pcfCoreComboBoxOptionSetSingleEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_privat"
+                Default: =ThisItem.Privat
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_privat")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue7.Selected.Value
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =7
+                ZIndex: =1
+
+                DataCardKey8 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue7 As combobox:
+                    AccessibleLabel: =If(Parent.Required, Substitute("{0}. Erforderlich.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    ChevronBackground: =RGBA(255, 255, 255, 1)
+                    ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+                    ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+                    ChevronFill: =RGBA(33, 33, 33, 1)
+                    ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+                    ChevronHoverFill: =RGBA(33, 33, 33, 1)
+                    Color: =RGBA(51, 51, 51, 1)
+                    DefaultSelectedItems: =[Parent.Default]
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayFields: =["Value"]
+                    DisplayMode: =Parent.DisplayMode
+                    Font: =Font.'Segoe UI'
+                    Height: =32
+                    HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsSearchable: =false
+                    Items: =Choices('Privat (ToDos)')
+                    PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    SearchFields: =["Value"]
+                    SearchItems: =[]
+                    SelectionFill: =RGBA(0, 120, 212, 1)
+                    SelectMultiple: =false
+                    Size: =10.5
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey8.Y + DataCardKey8.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage8 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue7.Y + DataCardValue7.Height
+                    ZIndex: =3
+
+                StarVisible8 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =20
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey8.Y
+                    ZIndex: =4
+
+            Titel_DataCard1 As typedDataCard.pcfCoreTextualEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_name"
+                Default: =ThisItem.Titel
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_name")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                MaxLength: =DataSourceInfo([@ToDos], DataSourceInfo.MaxLength, "crfce_name")
+                Required: =true
+                Update: =DataCardValue1.Value
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =1
+                ZIndex: =22
+
+                DataCardKey1 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue1 As Textfeld:
+                    AccessibleLabel: =Parent.DisplayName
+                    DisplayMode: =Parent.DisplayMode
+                    FontSize: =10.5
+                    Height: =32
+                    Mode: ="SingleLine"
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Required: =Parent.Required
+                    Tooltip: =Parent.DisplayName
+                    Value: =Parent.Default
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey1.Y + DataCardKey1.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage1 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue1.Y + DataCardValue1.Height
+                    ZIndex: =3
+
+                StarVisible1 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey1.Y
+                    ZIndex: =4
+
+            Beschreibung_DataCard1 As typedDataCard.pcfCoreTextualMultiLineEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_beschreibung"
+                Default: =ThisItem.Beschreibung
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_beschreibung")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue2.Value
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =2
+                ZIndex: =22
+
+                DataCardKey3 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue2 As Textfeld:
+                    AccessibleLabel: =Parent.DisplayName
+                    DisplayMode: =Parent.DisplayMode
+                    FontSize: =10.5
+                    Height: =48
+                    Mode: ="Multiline"
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Required: =Parent.Required
+                    Tooltip: =Parent.DisplayName
+                    Value: =Parent.Default
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey3.Y + DataCardKey3.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage3 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue2.Y + DataCardValue2.Height
+                    ZIndex: =3
+
+                StarVisible3 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey3.Y
+                    ZIndex: =4
+
+            Anhang_DataCard1 As typedDataCard.fileEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_anhang"
+                Default: |-
+                    =If(!IsBlank(ThisItem.Anhang.FileName), Table({DisplayName: ThisItem.Anhang.FileName, Value: ThisItem.Anhang.Value}), Blank())
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_anhang")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =113
+                Required: =false
+                Update: =DataCardValue3.Attachments
+                Width: =1086
+                WidthFit: =false
+                X: =0
+                Y: =6
+                ZIndex: =22
+
+                DataCardKey4 As label:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =9
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue3 As attachments:
+                    AddAttachmentText: ="Datei hochladen"
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    Height: =130
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsInDataCard: =true
+                    ItemColor: =RGBA(0, 0, 0, 1)
+                    ItemFill: =RGBA(0, 120, 212, 1)
+                    ItemHoverColor: =RGBA(51, 51, 51, 1)
+                    ItemHoverFill: =RGBA(212, 212, 212, 1)
+                    Items: =Parent.Default
+                    ItemSpacing: =12
+                    MaxAttachments: =1
+                    MaxAttachmentsText: =""
+                    NoAttachmentsColor: =RGBA(166, 166, 166, 1)
+                    NoAttachmentsText: ="Es ist keine Datei vorhanden."
+                    PaddingBottom: =5
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage4 As label:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(168, 0, 0, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(168, 0, 0, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =13
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue3.Y + DataCardValue3.Height
+                    ZIndex: =3
+
+                StarVisible4 As label:
+                    Align: =Align.Center
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =DataCardKey4.Height
+                    PaddingLeft: =0
+                    Size: =13
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey4.Y
+                    ZIndex: =4
+
+        TopBottomDivider1 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(166, 166, 166, 1)
+            Fill: =RGBA(0, 120, 212, 1)
+            FocusedBorderColor: =RGBA(98, 100, 167, 1)
+            FocusedBorderThickness: =4
+            Height: =1
+            HoverFill: =RGBA(0, 120, 212, 1)
+            PressedFill: =RGBA(0, 120, 212, 1)
+            Width: =Parent.Width
+            Y: =TopBar_RightContainer1.Height
+            ZIndex: =28
+

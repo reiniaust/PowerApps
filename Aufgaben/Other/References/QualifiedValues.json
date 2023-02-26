@@ -1,0 +1,68 @@
+{
+  "QualifiedValues": [
+    {
+      "Kind": "default.cds_crfce_todo_forms",
+      "Namespace": "ToDos (Formulare)",
+      "Values": {
+        "Information": "d2fce546-6588-4f88-8f88-a8df946fa943"
+      }
+    },
+    {
+      "Kind": "default.cds_crfce_kategorie_forms",
+      "Namespace": "Kategorien (Formulare)",
+      "Values": {
+        "Information": "0e20f248-6287-4026-96f7-ab668868de48"
+      }
+    },
+    {
+      "Kind": "default.cds_aaduser_forms",
+      "Namespace": "AAD Users (Formulare)",
+      "Values": {
+        "Information": "dd5ded01-9aad-4e25-8d0e-e9acdaecbe4e"
+      }
+    },
+    {
+      "Kind": "default.cds_crfce_fortschrittsstufen_forms",
+      "Namespace": "Fortschrittsstufen (Formulare)",
+      "Values": {
+        "Information": "2d0daae5-2df4-4d82-bf2f-ad7c7f508004"
+      }
+    },
+    {
+      "Kind": "default.cds_systemuser_forms",
+      "Namespace": "Benutzer (Formulare)",
+      "Values": {
+        "Anwendungsbenutzer": "d26924ef-4d80-46f7-ab1d-e6ae80a54ce8",
+        "Benutzer": "c2cd9e55-d4b4-4b55-9951-16ead79643e5",
+        "Informationen": "094fb08a-77bb-49e0-b7ea-8dbddfd01294",
+        "Kachelformular für Benutzerhierarchie": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
+      }
+    },
+    {
+      "Kind": "default.cds_usersettings_forms",
+      "Namespace": "Benutzereinstellungen (Formulare)",
+      "Values": {}
+    },
+    {
+      "Kind": "default.cds_crfce_test1_forms",
+      "Namespace": "Test1S (Formulare)",
+      "Values": {
+        "Information": "ea616059-b15d-4b2e-82bf-ab4709a0dcd1"
+      }
+    },
+    {
+      "Kind": "default.cds_applicationuser_forms",
+      "Namespace": "ApplicationUsers (Formulare)",
+      "Values": {
+        "Information": "a99f8861-8866-4539-8134-faa21db72fff"
+      }
+    },
+    {
+      "Kind": "default.cds_crfce_fortschrittsstufen_forms",
+      "Namespace": "Fortschrittsstufens (Formulare)",
+      "Values": {
+        "Information": "2d0daae5-2df4-4d82-bf2f-ad7c7f508004"
+      }
+    }
+  ]
+}
