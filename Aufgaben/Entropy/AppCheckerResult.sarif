@@ -24,7 +24,7 @@
                 },
                 "region": {
                   "charLength": 15,
-                  "charOffset": 125,
+                  "charOffset": 131,
                   "snippet": {
                     "text": "IsBlank(Privat)"
                   }
@@ -64,7 +64,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 141,
+                  "charOffset": 147,
                   "snippet": {
                     "text": "Or"
                   }
@@ -104,7 +104,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 152,
+                  "charOffset": 158,
                   "snippet": {
                     "text": "Or"
                   }
