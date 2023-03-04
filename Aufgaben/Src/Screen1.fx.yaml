@@ -59,22 +59,22 @@
                 Fill: |-
                     =If(
                         ThisItem.Termin < Today(),
-                        Red,
+                        Color.Red,
                         If(
                             ThisItem.Termin >= Today() And ThisItem.Termin < DateAdd(
                                 Today(),
                                 1,
-                                Days
+                                TimeUnit.Days
                             ),
-                            Yellow,
+                            Color.Yellow,
                             If(
                                 ThisItem.Termin > Today() And ThisItem.Termin < DateAdd(
                                     Today(),
                                     2,
-                                    Days
+                                    TimeUnit.Days
                                 ),
-                                Green,
-                                Transparent
+                                Color.Green,
+                                Color.Transparent
                             )
                         )
                     )
@@ -755,13 +755,13 @@
                     HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
                     HoverColor: =RGBA(51, 51, 51, 1)
                     HoverFill: =RGBA(212, 212, 212, 1)
-                    Items: =Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', Ascending)
+                    Items: =Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', SortOrder.Ascending)
                     PaddingLeft: =12
                     PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
                     PressedColor: =RGBA(255, 255, 255, 1)
                     PressedFill: =RGBA(0, 120, 212, 1)
                     SearchFields: =["crfce_pfadundname"]
-                    SearchItems: =Search(Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', Ascending),DataCardValue5.SearchText,"crfce_pfadundname")
+                    SearchItems: =Search(Sort(Choices([@ToDos].crfce_Kategorie), 'Pfad und Name', SortOrder.Ascending),DataCardValue5.SearchText,"crfce_pfadundname")
                     SelectionFill: =RGBA(0, 120, 212, 1)
                     SelectMultiple: =false
                     Size: =10.5
@@ -1001,7 +1001,7 @@
                 BorderColor: =RGBA(166, 166, 166, 1)
                 BorderStyle: =BorderStyle.Solid
                 DataField: ="crfce_privat"
-                Default: =ThisItem.Privat
+                Default: =ThisItem.crfce_privat
                 DisplayMode: =Parent.DisplayMode
                 DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_privat")
                 Fill: =RGBA(0, 0, 0, 0)

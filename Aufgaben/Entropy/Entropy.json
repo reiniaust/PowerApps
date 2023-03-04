@@ -2,51 +2,51 @@
   "ComponentIndexes": {},
   "ControlUniqueGuids": {},
   "ControlUniqueIds": {
-    "Anhang_DataCard1": 75,
+    "Anhang_DataCard1": 67,
     "App": 1,
     "AppNameLabel1": 7,
     "Beschreibung_DataCard1": 52,
-    "Beteiligt_DataCard1": 86,
+    "Beteiligt_DataCard1": 77,
     "BrowseGallery1": 20,
     "Checkbox_selber_zuständig": 19,
     "ComboBox2": 13,
     "DataCardKey1": 49,
-    "DataCardKey2": 64,
+    "DataCardKey2": 84,
     "DataCardKey3": 54,
-    "DataCardKey4": 77,
-    "DataCardKey5": 72,
+    "DataCardKey4": 69,
+    "DataCardKey5": 64,
     "DataCardKey6": 44,
     "DataCardKey7": 59,
-    "DataCardKey8": 82,
-    "DataCardKey9": 87,
+    "DataCardKey8": 74,
+    "DataCardKey9": 79,
     "DataCardValue1": 50,
     "DataCardValue2": 55,
-    "DataCardValue3": 78,
-    "DataCardValue4": 73,
+    "DataCardValue3": 70,
+    "DataCardValue4": 65,
     "DataCardValue5": 45,
     "DataCardValue6": 60,
-    "DataCardValue7": 83,
-    "DataCardValue8": 88,
-    "DateValue1": 65,
+    "DataCardValue7": 75,
+    "DataCardValue8": 80,
+    "DateValue1": 85,
     "DeleteCancelBtn1": 39,
     "DeleteConfirmBtn1": 40,
     "DeleteConfirmOverlay1": 35,
     "DeleteText1": 38,
     "EditForm1": 41,
     "ErrorMessage1": 51,
-    "ErrorMessage2": 69,
+    "ErrorMessage2": 89,
     "ErrorMessage3": 56,
-    "ErrorMessage4": 79,
-    "ErrorMessage5": 74,
+    "ErrorMessage4": 71,
+    "ErrorMessage5": 66,
     "ErrorMessage6": 46,
     "ErrorMessage7": 61,
-    "ErrorMessage8": 84,
-    "ErrorMessage9": 89,
+    "ErrorMessage8": 76,
+    "ErrorMessage9": 81,
     "Fällig1": 16,
-    "Fortschritt_DataCard1": 70,
+    "Fortschritt_DataCard1": 62,
     "Fortschritt1": 15,
     "galleryTemplate1": 21,
-    "HourValue1": 66,
+    "HourValue1": 86,
     "IconButton_Accept1": 34,
     "IconButton_Add_Icon1": 10,
     "IconButton_Add_Label1": 12,
@@ -59,25 +59,25 @@
     "LeftContainer1": 5,
     "LeftControlContainer1": 8,
     "LeftRightDivider1": 25,
-    "MinuteValue1": 68,
-    "Privat_DataCard1": 80,
+    "MinuteValue1": 88,
+    "Privat_DataCard1": 72,
     "Rectangle2": 22,
     "RightContainer1": 26,
     "Screen1": 4,
-    "Separator1": 67,
+    "Separator1": 87,
     "StarVisible1": 48,
-    "StarVisible2": 63,
+    "StarVisible2": 83,
     "StarVisible3": 53,
-    "StarVisible4": 76,
-    "StarVisible5": 71,
+    "StarVisible4": 68,
+    "StarVisible5": 63,
     "StarVisible6": 43,
     "StarVisible7": 58,
-    "StarVisible8": 81,
-    "StarVisible9": 90,
+    "StarVisible8": 73,
+    "StarVisible9": 78,
     "Status1": 14,
     "Subtitle2": 24,
     "Teams": 3,
-    "Termin_DataCard1": 62,
+    "Termin_DataCard1": 82,
     "TextBox_Suchen": 18,
     "TimerCancel1": 28,
     "TimerDeleteCancelled1": 29,
@@ -87,14 +87,14 @@
     "Title2": 23,
     "TopBar_LeftContainer1": 6,
     "TopBar_RightContainer1": 27,
-    "TopBottomDivider1": 85,
+    "TopBottomDivider1": 90,
     "TouchTarget_New1": 11,
     "Value2": 17,
     "Zuständig_DataCard1": 57
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "02/27/2023 06:39:21",
+  "HeaderLastSavedDateTimeUTC": "03/04/2023 16:01:20",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "00e37819-8644-47e7-90ed-d9753f879e83": "\"/providers/microsoft.powerapps/apis/shared_commondataserviceforapps/connections/shared-commondataser-896aff83-cdae-4d01-8983-ebd0e8dc1ed4\"",
@@ -260,7 +260,7 @@
             }
           ]
         },
-        "Version": "1.328"
+        "Version": "1.329"
       },
       "ThisChannel": {
         "Type": {
@@ -288,7 +288,7 @@
             }
           ]
         },
-        "Version": "1.328"
+        "Version": "1.329"
       },
       "ThisMeeting": {
         "Type": {
@@ -304,7 +304,7 @@
             }
           ]
         },
-        "Version": "1.328"
+        "Version": "1.329"
       },
       "ThisTeam": {
         "Type": {
@@ -332,7 +332,7 @@
             }
           ]
         },
-        "Version": "1.328"
+        "Version": "1.329"
       }
     },
     "Termin_DataCard1": {},
@@ -450,11 +450,11 @@
   "RuleScreenIdWithoutScreen": {},
   "TemplateVersions": {},
   "VolatileProperties": {
-    "AnalysisLoadTime": 0.455422,
+    "AnalysisLoadTime": 0.4772448,
     "ControlCount": {
       "attachments": 1,
       "button": 2,
-      "combobox": 6,
+      "combobox": 7,
       "form": 1,
       "gallery": 1,
       "galleryTemplate": 1,
@@ -465,16 +465,16 @@
       "Microsoft_CoreControls_Checkbox": 1,
       "Microsoft_CoreControls_ComboBox": 1,
       "Microsoft_CoreControls_DatePicker": 1,
-      "Microsoft_CoreControls_Label": 24,
+      "Microsoft_CoreControls_Label": 27,
       "Microsoft_CoreControls_TextBox": 3,
       "pcfDataField": 4,
       "rectangle": 4,
       "screen": 1,
       "timer": 4,
-      "typedDataCard": 8
+      "typedDataCard": 9
     },
-    "DeserializationLoadTime": 2.5577753,
-    "ErrorCount": 3
+    "DeserializationLoadTime": 6.8315083,
+    "ErrorCount": 53
   },
   "WasLocalDatabaseReferencesEmpty": false
 }
