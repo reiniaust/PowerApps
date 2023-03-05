@@ -23,7 +23,7 @@
                         Filter(
                             Filter(
                                 Filter(
-                                    ToDos,
+                                    If(IsBlank(CurrentToDos), ToDos, CurrentToDos),
                                     !("Privat" in Kategorie.'Pfad und Name') Or 'Created By'.Benutzername = User().Email
                                 ),
                                 Fortschritt in ComboBox2.SelectedItems
@@ -44,7 +44,9 @@
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             OnSelect: |-
-                =UpdateContext({ itemSelected: true, CurrentItem: ThisItem })
+                =UpdateContext({ itemSelected: true, CurrentItem: ThisItem });
+                
+                UpdateContext({ CurrentToDos: Filter(ToDos, ThisItem.Kategorie.'Pfad und Name' in Kategorie.'Pfad und Name' Or Kategorie.'Pfad und Name' in ThisItem.Kategorie.'Pfad und Name') })
             TabIndex: =0
             TemplateFill: =If(Self.IsSelected, RGBA(0,0,0,0.05), RGBA(0,0,0,0))
             TemplatePadding: =0
@@ -160,9 +162,11 @@
                 FocusedBorderThickness: =4
                 Font: =Font.'Segoe UI'
                 Height: =Parent.Height
+                OnSelect: |-
+                    =UpdateContext({ CurrentToDos: Blank() })
                 Role: =TextRole.Heading1
                 Size: =13
-                Text: ="Aufgaben"
+                Text: =If(IsBlank(CurrentToDos), "Aufgaben", "<- Zurück")
                 Width: =Parent.Width - varStyle.topBarTitleLeftPadding
                 X: =varStyle.topBarTitleLeftPadding
                 ZIndex: =4
