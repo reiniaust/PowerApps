@@ -38,6 +38,7 @@
       "employeeid": "Mitarbeiter",
       "entityimage": "Bild der Entität",
       "entityimageid": "Bild-ID der Entität",
+      "exchangerate": "Wechselkurs",
       "firstname": "Vorname",
       "flowmachinegroup_PasswordChangedBy": "Flow-Computergruppen (flowmachinegroup_PasswordChangedBy)",
       "flowmachinegroup_RotationStartedBy": "Flow-Computergruppen (flowmachinegroup_RotationStartedBy)",

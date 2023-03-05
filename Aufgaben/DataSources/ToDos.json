@@ -90,26 +90,6 @@
     "Type": "OptionSetInfo"
   },
   {
-    "DisplayName": "Privat (ToDos)",
-    "Name": "crfce_todo_crfce_privat",
-    "OptionSetInfoNameMapping": {
-      "0": "Nein",
-      "1": "Ja"
-    },
-    "OptionSetIsBooleanValued": true,
-    "OptionSetIsGlobal": false,
-    "OptionSetReference": {
-      "OptionSetReferenceItem0": {
-        "OptionSetReferenceColumnName": "crfce_privat",
-        "OptionSetReferenceEntityName": "ToDos"
-      }
-    },
-    "OptionSetTypeKey": "BooleanType",
-    "RelatedColumnInvariantName": "crfce_privat",
-    "RelatedEntityName": "ToDos",
-    "Type": "OptionSetInfo"
-  },
-  {
     "DisplayName": "Status (ToDos)",
     "Name": "crfce_todo_statecode",
     "OptionSetInfoNameMapping": {
