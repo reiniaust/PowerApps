@@ -166,7 +166,7 @@
                     =UpdateContext({ CurrentToDos: Blank() })
                 Role: =TextRole.Heading1
                 Size: =13
-                Text: =If(IsBlank(CurrentToDos), "Aufgaben", "<- Zurück")
+                Text: =If(IsBlank(CurrentToDos), "Aufgaben", "Zurück")
                 Width: =Parent.Width - varStyle.topBarTitleLeftPadding
                 X: =varStyle.topBarTitleLeftPadding
                 ZIndex: =4
@@ -523,7 +523,10 @@
                 HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
                 HoverFill: =RGBA(0, 0, 0, 0)
                 Icon: =Icon.Check
-                OnSelect: =SubmitForm(EditForm1)
+                OnSelect: |
+                    =SubmitForm(EditForm1);
+                    
+                    UpdateContext({ CurrentToDos: Blank() })
                 PaddingBottom: =varStyle.iconPadding
                 PaddingLeft: =varStyle.iconPadding
                 PaddingRight: =varStyle.iconPadding
