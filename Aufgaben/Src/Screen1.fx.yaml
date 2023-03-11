@@ -28,8 +28,8 @@
                                 ),
                                 Fortschritt in ComboBox2.SelectedItems
                             ),
-                            First(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
-                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
+                            First(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung
+                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung
                         ),
                         If(
                             Checkbox_selber_zuständig.Checked,
@@ -97,7 +97,7 @@
                 OnSelect: =Select(Parent)
                 PCFTeamsTheme: =TeamsTheme.Default
                 TabIndex: =-1
-                Text: =ThisItem.Kategorie.'Pfad und Name'
+                Text: =ThisItem.Kategorie.'Pfad und Name mit Verknüpfung'
                 VerticalAlignment: =VerticalAlign.Top
                 Width: =Parent.TemplateWidth - 24
                 X: =12
