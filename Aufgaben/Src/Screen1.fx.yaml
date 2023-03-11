@@ -28,8 +28,8 @@
                                 ),
                                 Fortschritt in ComboBox2.SelectedItems
                             ),
-                            First(Split(TextBox_Suchen.Value, " ")).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
-                            And Last(Split(TextBox_Suchen.Value, " ")).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
+                            First(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
+                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name' & Beschreibung
                         ),
                         If(
                             Checkbox_selber_zuständig.Checked,
@@ -526,7 +526,8 @@
                 OnSelect: |
                     =SubmitForm(EditForm1);
                     
-                    UpdateContext({ CurrentToDos: Blank() })
+                    UpdateContext({ CurrentToDos: Blank() });
+                    UpdateContext({itemSelected:false}) // dmit beim Handy sofort zurück gesprungen wird
                 PaddingBottom: =varStyle.iconPadding
                 PaddingLeft: =varStyle.iconPadding
                 PaddingRight: =varStyle.iconPadding
