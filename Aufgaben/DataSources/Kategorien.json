@@ -25,6 +25,7 @@
       "crfce_name": "Name",
       "crfce_pfad": "Pfad",
       "crfce_pfadundname": "Pfad und Name",
+      "crfce_pfadundnamederverknupfung": "Pfad und Name der Verknüpfung",
       "crfce_pfadundnamemitverknupfung": "Pfad und Name mit Verknüpfung",
       "crfce_Verknuepfung": "Verknüpfung",
       "importsequencenumber": "Import Sequence Number",

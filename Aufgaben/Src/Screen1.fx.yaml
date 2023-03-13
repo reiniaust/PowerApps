@@ -46,7 +46,7 @@
             OnSelect: |-
                 =UpdateContext({ itemSelected: true, CurrentItem: ThisItem });
                 
-                UpdateContext({ CurrentToDos: Filter(ToDos, ThisItem.Kategorie.'Pfad und Name' in Kategorie.'Pfad und Name' Or Kategorie.'Pfad und Name' in ThisItem.Kategorie.'Pfad und Name') })
+                UpdateContext({ CurrentToDos: Filter(ToDos, ThisItem.Kategorie.'Pfad und Name' in Kategorie.'Pfad und Name mit Verknüpfung' Or Kategorie.'Pfad und Name' in ThisItem.Kategorie.'Pfad und Name mit Verknüpfung') }) 
             TabIndex: =0
             TemplateFill: =If(Self.IsSelected, RGBA(0,0,0,0.05), RGBA(0,0,0,0))
             TemplatePadding: =0
