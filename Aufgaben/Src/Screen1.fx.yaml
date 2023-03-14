@@ -689,7 +689,15 @@
             OnFailure: =Notify("Kann nicht gespeichert werden. Überprüfen Sie, ob Fehler im Formular vorhanden sind.",NotificationType.Error)
             OnSuccess: |
                 =// Speichern
+                
+                UpdateContext({ protText: "" });
+                If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: " Titel:" & CurrentItem.Titel }));
+                
                 UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
+                
+                If(protText <> "", UpdateContext({ protText: CurrentItem.Protokoll & User().FullName & " " & Today() & protText }));
+                
+                ProtokollSpeichern.Run(CurrentItem.ToDo, "Test");
                 
                 Set(name, Substitute(CurrentItem.Zuständig.'Display Name', " ", "."));
                 If(name = "Reinhard.Austermeier", Set(name, "Reinhard"));
@@ -706,7 +714,7 @@
                 // 'PowerApp->NachrichtineinemChatoderKanalveröffentlichen'.Run()
             Visible: =!deleteMode
             Width: =Parent.Width
-            Y: =TopBar_RightContainer1.Y + TopBar_RightContainer1.Height
+            Y: =26
             ZIndex: =21
 
             Kategorie_DataCard1 As typedDataCard.pcfCoreComboBoxEditCard:
@@ -1261,6 +1269,81 @@
                     Y: =DataCardKey5.Y
                     ZIndex: =4
 
+            Protokoll_DataCard1 As typedDataCard.pcfCoreTextualMultiLineEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_protokoll"
+                Default: =ThisItem.Protokoll
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_protokoll")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                Required: =false
+                Update: =DataCardValue7.Value
+                Width: =1086
+                WidthFit: =true
+                X: =0
+                Y: =8
+                ZIndex: =1
+
+                DataCardKey8 As Beschriftung:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.DisplayName
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue7 As Textfeld:
+                    AccessibleLabel: =Parent.DisplayName
+                    DisplayMode: =Parent.DisplayMode
+                    FontSize: =10.5
+                    Height: =48
+                    Mode: ="Multiline"
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Required: =Parent.Required
+                    Tooltip: =Parent.DisplayName
+                    Value: =Parent.Default
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey8.Y + DataCardKey8.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage8 As Beschriftung:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue7.Y + DataCardValue7.Height
+                    ZIndex: =3
+
+                StarVisible8 As Beschriftung:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =30
+                    PCFTeamsTheme: =TeamsTheme.Default
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey8.Y
+                    ZIndex: =4
+
             Titel_DataCard1 As typedDataCard.pcfCoreTextualEditCard:
                 BorderColor: =RGBA(166, 166, 166, 1)
                 BorderStyle: =BorderStyle.Solid
@@ -1421,7 +1504,7 @@
                 DisplayMode: =Parent.DisplayMode
                 DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_anhang")
                 Fill: =RGBA(0, 0, 0, 0)
-                Height: =113
+                Height: =30
                 Required: =false
                 Update: =DataCardValue3.Attachments
                 Width: =1086
@@ -1462,7 +1545,7 @@
                     DisplayMode: =Parent.DisplayMode
                     FocusedBorderThickness: =4
                     Font: =Font.'Segoe UI'
-                    Height: =130
+                    Height: =52
                     HoverColor: =RGBA(51, 51, 51, 1)
                     HoverFill: =RGBA(212, 212, 212, 1)
                     IsInDataCard: =true

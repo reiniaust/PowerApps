@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "b0dddc14-0b94-4bae-9e06-d46c7fd9c86f",
+    "Name": "ProtokollSpeichern",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "a94d9680-96c2-ed11-83ff-0022489fdfbd"
+  }
+]

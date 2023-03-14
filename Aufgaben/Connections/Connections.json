@@ -17,7 +17,8 @@
     "dataSources": [],
     "dependencies": {},
     "dependents": [
-      "a071a2f1-f13d-493a-9f72-ab46b5322b5d"
+      "a071a2f1-f13d-493a-9f72-ab46b5322b5d",
+      "511c50c9-57c7-4216-a167-f3a91c52218e"
     ],
     "id": "00e37819-8644-47e7-90ed-d9753f879e83"
   },
@@ -40,6 +41,52 @@
       "a071a2f1-f13d-493a-9f72-ab46b5322b5d"
     ],
     "id": "49cfbe1b-54bc-4eae-a03d-66d6af14996e"
+  },
+  "511c50c9-57c7-4216-a167-f3a91c52218e": {
+    "connectionParameters": {
+      "logicAppHostType": "ARM",
+      "workFlowCallbackUri": "https://prod-141.westeurope.logic.azure.com:443/workflows/97aee94d2cf64a30acc9a8e2860efdc3/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2SXYQK4ZubSN_Qn9aF4exVnhAYN1nyG1YkpJhkM15zM",
+      "workflowEndpoint": "/subscriptions/be4c2756-6fa8-4d1b-91ba-70dc75410b5a/resourceGroups/0d04f3a67ede4572a7468a422191d062-98a6cb60c0a0e6c1abed9eee655ed650-env/providers/Microsoft.Logic/workflows/5e23e858-152e-4b81-d512-32545232a0ed",
+      "workflowEntityId": "a94d9680-96c2-ed11-83ff-0022489fdfbd",
+      "workflowName": "5e23e858-152e-4b81-d512-32545232a0ed",
+      "workflowPath": "/subscriptions/be4c2756-6fa8-4d1b-91ba-70dc75410b5a/resourceGroups/0d04f3a67ede4572a7468a422191d062-98a6cb60c0a0e6c1abed9eee655ed650-env/providers/Microsoft.Logic/workflows/5e23e858-152e-4b81-d512-32545232a0ed"
+    },
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1615/1.0.1615.3163/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "00e37819-8644-47e7-90ed-d9753f879e83": {
+          "value": "shared_commondataserviceforapps"
+        },
+        "workflowEntityId": {
+          "value": "a94d9680-96c2-ed11-83ff-0022489fdfbd"
+        },
+        "workflowName": {
+          "value": "5e23e858-152e-4b81-d512-32545232a0ed"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_commondataserviceforapps": {
+          "value": "00e37819-8644-47e7-90ed-d9753f879e83"
+        },
+        "workflowEntityId": {
+          "value": "a94d9680-96c2-ed11-83ff-0022489fdfbd"
+        },
+        "workflowName": {
+          "value": "5e23e858-152e-4b81-d512-32545232a0ed"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ProtokollSpeichern"
+    ],
+    "dependencies": {
+      "shared_commondataserviceforapps": "00e37819-8644-47e7-90ed-d9753f879e83"
+    },
+    "dependents": [],
+    "id": "511c50c9-57c7-4216-a167-f3a91c52218e"
   },
   "a071a2f1-f13d-493a-9f72-ab46b5322b5d": {
     "connectionParameters": {
