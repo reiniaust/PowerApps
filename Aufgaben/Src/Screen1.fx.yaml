@@ -1,4 +1,5 @@
 "Screen1 As screen.'teamsHeroApp_ver1.0'":
+
     LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
     OnVisible: |-
         =UpdateContext({ varStyle: { topBarHeight:52, topBarTitleSize:12, topBarTitleLeftPadding:12, topBarIconRightPadding:12, topBarTitleLeftPaddingWithButton:8, iconSize:16, largeIconSize:50, iconPadding:12, spaceBetweenIcons:8, deletePageSideMargins:200, galleryBarHeight:70, searchBarHeight:32, deleteTextHeight:120, deleteConfirmButtonHeight:40, iconButtonFill:RGBA(0,0,0,0.2), iconButtonSmallWidth:30, iconFill: ColorValue("#6264A7"), dividerFill: ColorValue("#EAE9E8"), formLabelFontSize: 10.5, focusBorderColor: ColorValue("#000000"), focusBorderThickness: 2, borderStyle: BorderStyle.Dashed }});
