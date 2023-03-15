@@ -691,13 +691,19 @@
                 =// Speichern
                 
                 UpdateContext({ protText: "" });
-                If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: " Titel:" & CurrentItem.Titel }));
+                If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: protText & " - Titel: " & Self.LastSubmit.Titel }));
+                If(CurrentItem.Titel <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & " - Beschreibung: " & Self.LastSubmit.Beschreibung }));
+                If(CurrentItem.Titel <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & " - Zuständig: " & Self.LastSubmit.Zuständig.'Display Name' }));
+                If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, UpdateContext({ protText: protText & " - Fortschritt: " & Self.LastSubmit.Fortschritt }));
                 
                 UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
                 
-                If(protText <> "", UpdateContext({ protText: CurrentItem.Protokoll & User().FullName & " " & Today() & protText }));
+                If(protText <> "", 
+                    UpdateContext({ protText: CurrentItem.Protokoll & User().FullName & " " & Today() & protText });
+                    ProtokollSpeichern.Run(CurrentItem.ToDo, CurrentItem.Protokoll & protText & Char(10));
+                    //ProtokollSpeichern.Run(CurrentItem.ToDo; protText);;
+                );
                 
-                ProtokollSpeichern.Run(CurrentItem.ToDo, "Test");
                 
                 Set(name, Substitute(CurrentItem.Zuständig.'Display Name', " ", "."));
                 If(name = "Reinhard.Austermeier", Set(name, "Reinhard"));
@@ -714,7 +720,7 @@
                 // 'PowerApp->NachrichtineinemChatoderKanalveröffentlichen'.Run()
             Visible: =!deleteMode
             Width: =Parent.Width
-            Y: =26
+            Y: =51
             ZIndex: =21
 
             Kategorie_DataCard1 As typedDataCard.pcfCoreComboBoxEditCard:
@@ -1344,6 +1350,128 @@
                     Y: =DataCardKey8.Y
                     ZIndex: =4
 
+            Anhang_DataCard1 As typedDataCard.fileEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="crfce_anhang"
+                Default: |-
+                    =If(!IsBlank(ThisItem.Anhang.FileName), Table({DisplayName: ThisItem.Anhang.FileName, Value: ThisItem.Anhang.Value}), Blank())
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_anhang")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =50
+                Required: =false
+                Update: =DataCardValue3.Attachments
+                Width: =1086
+                X: =0
+                Y: =9
+                ZIndex: =1
+
+                DataCardKey4 As label:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =34
+                    PaddingLeft: =0
+                    Size: =13
+                    Text: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    Wrap: =false
+                    X: =30
+                    Y: =10
+                    ZIndex: =1
+
+                DataCardValue3 As attachments:
+                    AddAttachmentText: ="Datei hochladen"
+                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    DisabledFill: =RGBA(244, 244, 244, 1)
+                    DisplayMode: =Parent.DisplayMode
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    Height: =170
+                    HoverColor: =RGBA(51, 51, 51, 1)
+                    HoverFill: =RGBA(212, 212, 212, 1)
+                    IsInDataCard: =true
+                    ItemColor: =RGBA(0, 0, 0, 1)
+                    ItemFill: =RGBA(0, 120, 212, 1)
+                    ItemHoverColor: =RGBA(51, 51, 51, 1)
+                    ItemHoverFill: =RGBA(212, 212, 212, 1)
+                    Items: =Parent.Default
+                    ItemSpacing: =12
+                    MaxAttachments: =1
+                    MaxAttachmentsText: =""
+                    NoAttachmentsColor: =RGBA(166, 166, 166, 1)
+                    NoAttachmentsText: ="Es ist keine Datei vorhanden."
+                    PaddingBottom: =5
+                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    PressedColor: =RGBA(255, 255, 255, 1)
+                    PressedFill: =RGBA(0, 120, 212, 1)
+                    Tooltip: =Parent.DisplayName
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                    ZIndex: =2
+
+                ErrorMessage4 As label:
+                    AutoHeight: =true
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(168, 0, 0, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(168, 0, 0, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =10
+                    Live: =Live.Assertive
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =13
+                    Text: =Parent.Error
+                    Visible: =Parent.DisplayMode=DisplayMode.Edit
+                    Width: =Parent.Width - 60
+                    X: =30
+                    Y: =DataCardValue3.Y + DataCardValue3.Height
+                    ZIndex: =3
+
+                StarVisible4 As label:
+                    Align: =Align.Center
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    FontWeight: =FontWeight.Semibold
+                    Height: =DataCardKey4.Height
+                    PaddingLeft: =0
+                    Size: =13
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    Wrap: =false
+                    Y: =DataCardKey4.Y
+                    ZIndex: =4
+
             Titel_DataCard1 As typedDataCard.pcfCoreTextualEditCard:
                 BorderColor: =RGBA(166, 166, 166, 1)
                 BorderStyle: =BorderStyle.Solid
@@ -1493,128 +1621,6 @@
                     Width: =30
                     X: =0
                     Y: =DataCardKey3.Y
-                    ZIndex: =4
-
-            Anhang_DataCard1 As typedDataCard.fileEditCard:
-                BorderColor: =RGBA(166, 166, 166, 1)
-                BorderStyle: =BorderStyle.Solid
-                DataField: ="crfce_anhang"
-                Default: |-
-                    =If(!IsBlank(ThisItem.Anhang.FileName), Table({DisplayName: ThisItem.Anhang.FileName, Value: ThisItem.Anhang.Value}), Blank())
-                DisplayMode: =Parent.DisplayMode
-                DisplayName: =DataSourceInfo([@ToDos],DataSourceInfo.DisplayName,"crfce_anhang")
-                Fill: =RGBA(0, 0, 0, 0)
-                Height: =30
-                Required: =false
-                Update: =DataCardValue3.Attachments
-                Width: =1086
-                WidthFit: =false
-                X: =0
-                Y: =7
-                ZIndex: =22
-
-                DataCardKey4 As label:
-                    AutoHeight: =true
-                    BorderColor: =RGBA(0, 0, 0, 0)
-                    BorderStyle: =BorderStyle.None
-                    BorderThickness: =2
-                    Color: =RGBA(51, 51, 51, 1)
-                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    FocusedBorderThickness: =4
-                    Font: =Font.'Segoe UI'
-                    Height: =34
-                    PaddingLeft: =0
-                    Size: =9
-                    Text: =Parent.DisplayName
-                    Width: =Parent.Width - 60
-                    Wrap: =false
-                    X: =30
-                    Y: =10
-                    ZIndex: =1
-
-                DataCardValue3 As attachments:
-                    AddAttachmentText: ="Datei hochladen"
-                    BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                    BorderStyle: =BorderStyle.None
-                    BorderThickness: =2
-                    Color: =RGBA(51, 51, 51, 1)
-                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    DisabledFill: =RGBA(244, 244, 244, 1)
-                    DisplayMode: =Parent.DisplayMode
-                    FocusedBorderThickness: =4
-                    Font: =Font.'Segoe UI'
-                    Height: =52
-                    HoverColor: =RGBA(51, 51, 51, 1)
-                    HoverFill: =RGBA(212, 212, 212, 1)
-                    IsInDataCard: =true
-                    ItemColor: =RGBA(0, 0, 0, 1)
-                    ItemFill: =RGBA(0, 120, 212, 1)
-                    ItemHoverColor: =RGBA(51, 51, 51, 1)
-                    ItemHoverFill: =RGBA(212, 212, 212, 1)
-                    Items: =Parent.Default
-                    ItemSpacing: =12
-                    MaxAttachments: =1
-                    MaxAttachmentsText: =""
-                    NoAttachmentsColor: =RGBA(166, 166, 166, 1)
-                    NoAttachmentsText: ="Es ist keine Datei vorhanden."
-                    PaddingBottom: =5
-                    PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                    PaddingRight: =5
-                    PaddingTop: =5
-                    PressedColor: =RGBA(255, 255, 255, 1)
-                    PressedFill: =RGBA(0, 120, 212, 1)
-                    Tooltip: =Parent.DisplayName
-                    Width: =Parent.Width - 60
-                    X: =30
-                    Y: =DataCardKey4.Y + DataCardKey4.Height + 5
-                    ZIndex: =2
-
-                ErrorMessage4 As label:
-                    AutoHeight: =true
-                    BorderColor: =RGBA(0, 0, 0, 0)
-                    BorderStyle: =BorderStyle.None
-                    BorderThickness: =2
-                    Color: =RGBA(168, 0, 0, 1)
-                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                    DisabledColor: =RGBA(168, 0, 0, 1)
-                    FocusedBorderThickness: =4
-                    Font: =Font.'Segoe UI'
-                    FontWeight: =FontWeight.Semibold
-                    Height: =10
-                    Live: =Live.Assertive
-                    PaddingBottom: =0
-                    PaddingLeft: =0
-                    PaddingRight: =0
-                    PaddingTop: =0
-                    Size: =13
-                    Text: =Parent.Error
-                    Visible: =Parent.DisplayMode=DisplayMode.Edit
-                    Width: =Parent.Width - 60
-                    X: =30
-                    Y: =DataCardValue3.Y + DataCardValue3.Height
-                    ZIndex: =3
-
-                StarVisible4 As label:
-                    Align: =Align.Center
-                    BorderColor: =RGBA(0, 0, 0, 0)
-                    BorderStyle: =BorderStyle.None
-                    BorderThickness: =2
-                    Color: =RGBA(51, 51, 51, 1)
-                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                    DisabledColor: =RGBA(166, 166, 166, 1)
-                    FocusedBorderThickness: =4
-                    Font: =Font.'Segoe UI'
-                    FontWeight: =FontWeight.Semibold
-                    Height: =DataCardKey4.Height
-                    PaddingLeft: =0
-                    Size: =13
-                    Text: ="*"
-                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                    Width: =30
-                    Wrap: =false
-                    Y: =DataCardKey4.Y
                     ZIndex: =4
 
         TopBottomDivider1 As rectangle:
