@@ -692,15 +692,16 @@
                 
                 UpdateContext({ protText: "" });
                 If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: protText & " - Titel: " & Self.LastSubmit.Titel }));
-                If(CurrentItem.Titel <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & " - Beschreibung: " & Self.LastSubmit.Beschreibung }));
-                If(CurrentItem.Titel <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & " - Zuständig: " & Self.LastSubmit.Zuständig.'Display Name' }));
+                If(CurrentItem.Beschreibung <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & " - Beschreibung: " & Self.LastSubmit.Beschreibung }));
+                If(CurrentItem.Zuständig.'Display Name' <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & " - Zuständig: " & Self.LastSubmit.Zuständig.'Display Name' }));
                 If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, UpdateContext({ protText: protText & " - Fortschritt: " & Self.LastSubmit.Fortschritt }));
                 
                 UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
                 
                 If(protText <> "", 
                     UpdateContext({ protText: CurrentItem.Protokoll & User().FullName & " " & Today() & protText });
-                    ProtokollSpeichern.Run(CurrentItem.ToDo, CurrentItem.Protokoll & protText & Char(10));
+                    If(!IsBlank(CurrentItem.Protokoll), protText = CurrentItem.Protokoll & protText);
+                    ProtokollSpeichern.Run(CurrentItem.ToDo, protText & Char(10));
                     //ProtokollSpeichern.Run(CurrentItem.ToDo; protText);;
                 );
                 
