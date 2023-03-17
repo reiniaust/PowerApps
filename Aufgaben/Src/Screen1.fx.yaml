@@ -691,20 +691,23 @@
                 =// Speichern
                 
                 UpdateContext({ protText: "" });
-                If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: protText & " - Titel: " & Self.LastSubmit.Titel }));
-                If(CurrentItem.Beschreibung <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & " - Beschreibung: " & Self.LastSubmit.Beschreibung }));
-                If(CurrentItem.Zuständig.'Display Name' <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & " - Zuständig: " & Self.LastSubmit.Zuständig.'Display Name' }));
-                If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, UpdateContext({ protText: protText & " - Fortschritt: " & Self.LastSubmit.Fortschritt }));
-                
-                UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
-                
-                If(protText <> "", 
-                    UpdateContext({ protText: CurrentItem.Protokoll & User().FullName & " " & Today() & protText });
-                    If(!IsBlank(CurrentItem.Protokoll), protText = CurrentItem.Protokoll & protText);
-                    ProtokollSpeichern.Run(CurrentItem.ToDo, protText & Char(10));
-                    //ProtokollSpeichern.Run(CurrentItem.ToDo; protText);;
+                If(newMode,
+                    UpdateContext({ protText: "Von " & User().FullName & " am " & Today() & " angelegt." & Char(10)});
+                ,
+                    If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: "Titel: " & CurrentItem.Titel & Char(10) }));
+                    If(CurrentItem.Beschreibung <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & "Beschreibung: " & CurrentItem.Beschreibung & Char(10) }));
+                    If(CurrentItem.Zuständig.'Display Name' <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & "Zuständig: " & CurrentItem.Zuständig.'Display Name' & Char(10) }));
+                    If(CurrentItem.Beteiligt.'Display Name' <> Self.LastSubmit.Beteiligt.'Display Name', UpdateContext({ protText: protText & "Beteiligt: " & CurrentItem.Beteiligt.'Display Name' & Char(10) }));
+                    If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, UpdateContext({ protText: protText & " - Fortschritt: " & CurrentItem.Fortschritt & Char(10) }));
                 );
                 
+                If(protText <> "", 
+                    If(!newMode, UpdateContext({ protText: "Von " & User().FullName & " am " & Today() & " geändert." & Char(10) & protText }));
+                    If(!IsBlank(Self.LastSubmit.Protokoll), UpdateContext({ protText: protText & Self.LastSubmit.Protokoll }));
+                    ProtokollSpeichern.Run( Self.LastSubmit.ToDo, protText);
+                );
+                
+                UpdateContext({ CurrentItem: Self.LastSubmit, editMode: false, newMode: false });
                 
                 Set(name, Substitute(CurrentItem.Zuständig.'Display Name', " ", "."));
                 If(name = "Reinhard.Austermeier", Set(name, "Reinhard"));
