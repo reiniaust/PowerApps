@@ -28,8 +28,11 @@
                                 ),
                                 Fortschritt in ComboBox2.SelectedItems
                             ),
-                            First(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung
-                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung
+                            First(ForAll(Split(TextBox_Suchen.Value, " "), 
+                                {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' 
+                                & Beschreibung & Protokoll
+                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel 
+                                & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung & Protokoll
                         ),
                         If(
                             Checkbox_selber_zuständig.Checked,
