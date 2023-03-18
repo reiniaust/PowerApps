@@ -694,11 +694,23 @@
                 If(newMode,
                     UpdateContext({ protText: "Von " & User().FullName & " am " & Today() & " angelegt." & Char(10)});
                 ,
-                    If(CurrentItem.Titel <> Self.LastSubmit.Titel, UpdateContext({ protText: "Titel: " & CurrentItem.Titel & Char(10) }));
-                    If(CurrentItem.Beschreibung <> Self.LastSubmit.Beschreibung, UpdateContext({ protText: protText & "Beschreibung: " & CurrentItem.Beschreibung & Char(10) }));
-                    If(CurrentItem.Zuständig.'Display Name' <> Self.LastSubmit.Zuständig.'Display Name', UpdateContext({ protText: protText & "Zuständig: " & CurrentItem.Zuständig.'Display Name' & Char(10) }));
-                    If(CurrentItem.Beteiligt.'Display Name' <> Self.LastSubmit.Beteiligt.'Display Name', UpdateContext({ protText: protText & "Beteiligt: " & CurrentItem.Beteiligt.'Display Name' & Char(10) }));
-                    If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, UpdateContext({ protText: protText & " - Fortschritt: " & CurrentItem.Fortschritt & Char(10) }));
+                    If(CurrentItem.Titel <> Self.LastSubmit.Titel, 
+                        UpdateContext({ protText: "Titel: " & CurrentItem.Titel & " -> " & Self.LastSubmit.Titel & Char(10) }));
+                    If(CurrentItem.Beschreibung <> Self.LastSubmit.Beschreibung, 
+                        UpdateContext({ protText: protText & "Beschreibung: " & CurrentItem.Beschreibung 
+                        & " -> " & Self.LastSubmit.Beschreibung & Char(10) }));
+                    If(CurrentItem.Zuständig.'Display Name' <> Self.LastSubmit.Zuständig.'Display Name', 
+                        UpdateContext({ protText: protText & "Zuständig: " & CurrentItem.Zuständig.'Display Name' 
+                        & " -> " & Self.LastSubmit.Zuständig.'Display Name' & Char(10) }));
+                    If(CurrentItem.Beteiligt.'Display Name' <> Self.LastSubmit.Beteiligt.'Display Name', 
+                        UpdateContext({ protText: protText & "Beteiligt: " & CurrentItem.Beteiligt.'Display Name' 
+                        & " -> " & Self.LastSubmit.Beteiligt.'Display Name' & Char(10) }));
+                    If(CurrentItem.Fortschritt <> Self.LastSubmit.Fortschritt, 
+                        UpdateContext({ protText: protText & "Fortschritt: " & CurrentItem.Fortschritt 
+                        & " -> " & Self.LastSubmit.Fortschritt & Char(10) }));
+                    If(CurrentItem.Termin <> Self.LastSubmit.Termin, 
+                        UpdateContext({ protText: protText & "Termin: " & CurrentItem.Termin 
+                        & " -> " & Self.LastSubmit.Termin & Char(10) }));
                 );
                 
                 If(protText <> "", 
