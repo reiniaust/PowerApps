@@ -717,7 +717,7 @@
                 );
                 
                 If(protText <> "", 
-                    If(!newMode, UpdateContext({ protText: "Von " & User().FullName & " am " & Today() & " geändert." & Char(10) & protText }));
+                    If(!newMode, UpdateContext({ protText: "Von " & User().FullName & " am " & Today() & " geändert:" & Char(10) & protText }));
                     If(!IsBlank(Self.LastSubmit.Protokoll), UpdateContext({ protText: protText & Self.LastSubmit.Protokoll }));
                     ProtokollSpeichern.Run( Self.LastSubmit.ToDo, protText);
                 );
