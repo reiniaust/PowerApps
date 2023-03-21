@@ -94,7 +94,7 @@
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "03/19/2023 15:20:47",
+  "HeaderLastSavedDateTimeUTC": "03/21/2023 18:57:37",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "00e37819-8644-47e7-90ed-d9753f879e83": "\"/providers/microsoft.powerapps/apis/shared_commondataserviceforapps/connections/shared-commondataser-896aff83-cdae-4d01-8983-ebd0e8dc1ed4\"",
@@ -451,7 +451,7 @@
   "RuleScreenIdWithoutScreen": {},
   "TemplateVersions": {},
   "VolatileProperties": {
-    "AnalysisLoadTime": 0.517276,
+    "AnalysisLoadTime": 0.597843,
     "ControlCount": {
       "attachments": 1,
       "button": 2,
@@ -474,7 +474,7 @@
       "timer": 4,
       "typedDataCard": 9
     },
-    "DeserializationLoadTime": 2.0444188,
+    "DeserializationLoadTime": 2.1199338,
     "ErrorCount": 2
   },
   "WasLocalDatabaseReferencesEmpty": false

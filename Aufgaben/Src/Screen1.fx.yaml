@@ -730,7 +730,7 @@
                 
                 If(!IsBlank(CurrentItem.Zuständig) And CurrentItem.Fortschritt = Status.Angelegt And (zustaendigMail <> User().Email),
                     AufgabeSendenUndAufAntwortWarten.Run(
-                        CurrentItem.Kategorie.'Pfad und Name' & ": " & CurrentItem.Titel, 
+                        CurrentItem.Kategorie.Name & ": " & CurrentItem.Titel, 
                         zustaendigMail,
                         If(IsBlank(CurrentItem.Beschreibung),"",CurrentItem.Beschreibung),
                         CurrentItem.ToDo
