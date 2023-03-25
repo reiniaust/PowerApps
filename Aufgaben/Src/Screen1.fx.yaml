@@ -28,11 +28,9 @@
                                 ),
                                 Fortschritt in ComboBox2.SelectedItems
                             ),
-                            First(ForAll(Split(TextBox_Suchen.Value, " "), 
-                                {Result: ThisRecord.Value})).Result in Titel & Kategorie.'Pfad und Name mit Verknüpfung' 
-                                & Beschreibung & Protokoll
-                            And Last(ForAll(Split(TextBox_Suchen.Value, " "), {Result: ThisRecord.Value})).Result in Titel 
-                                & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung & Protokoll
+                            CountRows(Filter(Split(TextBox_Suchen.Value, " "),
+                                !(Value in Titel & Kategorie.'Pfad und Name mit Verknüpfung' & Beschreibung & Protokoll))
+                            ) = 0
                         ),
                         If(
                             Checkbox_selber_zuständig.Checked,

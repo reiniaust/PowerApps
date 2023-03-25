@@ -27,21 +27,6 @@
     "OverridableProperties": {},
     "Version": "2.3.0"
   },
-  "Beschriftung": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/Microsoft_CoreControls_Label",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "Microsoft_CoreControls_Label",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Beschriftung",
-    "Version": "1.6.0"
-  },
   "button": {
     "CustomGroupControlTemplateName": "",
     "FirstParty": true,
@@ -69,21 +54,6 @@
     "Name": "combobox",
     "OverridableProperties": {},
     "Version": "2.4.0"
-  },
-  "Datumsauswahl": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/Microsoft_CoreControls_DatePicker",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "Microsoft_CoreControls_DatePicker",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Datumsauswahl",
-    "Version": "1.5.1"
   },
   "form": {
     "CustomGroupControlTemplateName": "",
@@ -139,7 +109,7 @@
     "LastModifiedTimestamp": "0",
     "Name": "groupContainer",
     "OverridableProperties": {},
-    "Version": "1.1.0"
+    "Version": "1.2.0"
   },
   "hostControl": {
     "CustomGroupControlTemplateName": "",
@@ -260,36 +230,6 @@
     "OverridableProperties": {},
     "Version": "2.5.0"
   },
-  "Kombinationsfeld": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/Microsoft_CoreControls_ComboBox",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "Microsoft_CoreControls_ComboBox",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Kombinationsfeld",
-    "Version": "1.5.0"
-  },
-  "Kontrollkästchen": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/Microsoft_CoreControls_Checkbox",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "Microsoft_CoreControls_Checkbox",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Kontrollkästchen",
-    "Version": "1.7.1"
-  },
   "label": {
     "CustomGroupControlTemplateName": "",
     "FirstParty": true,
@@ -345,21 +285,6 @@
     "Name": "screen",
     "OverridableProperties": {},
     "Version": "1.0"
-  },
-  "Textfeld": {
-    "CustomGroupControlTemplateName": "",
-    "FirstParty": true,
-    "Id": "http://microsoft.com/appmagic/powercontrol/Microsoft_CoreControls_TextBox",
-    "IsComponentTemplate": false,
-    "IsCustomGroupControlTemplate": false,
-    "IsPcfControl": true,
-    "IsPremiumPcfControl": false,
-    "IsWidgetTemplate": false,
-    "LastModifiedTimestamp": "0",
-    "Name": "Microsoft_CoreControls_TextBox",
-    "OverridableProperties": {},
-    "TemplateDisplayName": "Textfeld",
-    "Version": "1.6.1"
   },
   "timer": {
     "CustomGroupControlTemplateName": "",
