@@ -89,7 +89,7 @@
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "03/26/2023 13:06:18",
+  "HeaderLastSavedDateTimeUTC": "03/26/2023 13:08:10",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "00e37819-8644-47e7-90ed-d9753f879e83": "\"/providers/microsoft.powerapps/apis/shared_commondataserviceforapps/connections/shared-commondataser-896aff83-cdae-4d01-8983-ebd0e8dc1ed4\"",
@@ -902,7 +902,7 @@
     "Title2": 18,
     "TopBar_LeftContainer1": 1,
     "TopBar_RightContainer1": 22,
-    "TopBottomDivider1": 85,
+    "TopBottomDivider1": 80,
     "TouchTarget_New1": 6,
     "Value2": 12,
     "Zuständig_DataCard1": 52
