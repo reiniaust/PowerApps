@@ -13,6 +13,8 @@
       "createdby": "Created By",
       "createdon": "Created On",
       "createdonbehalfby": "Created By (Delegate)",
+      "crfce_bild": "Bild",
+      "crfce_bildid": "crfce_BildId",
       "crfce_crfce_kategorie_Hauptkategorie_crfce_kate": "Kategorien (crfce_crfce_kategorie_Hauptkategorie_crfce_kate)",
       "crfce_crfce_kategorie_Verknuepfung_crfce_katego": "Kategorien (crfce_crfce_kategorie_Verknuepfung_crfce_katego)",
       "crfce_crfce_todo_Kategorie_crfce_kategorie": "ToDos",
