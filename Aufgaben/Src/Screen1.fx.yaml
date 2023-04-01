@@ -1416,7 +1416,7 @@
                     Height: =AddPicture1.Height
                     HoverBorderColor: =RGBA(0, 0, 0, 0)
                     HoverFill: =RGBA(0, 0, 0, 0)
-                    Image: =If(IsBlank(AddPicture1.Media), Parent.Default, AddPicture1.Media)
+                    Image: =If(IsBlank(AddPicture1.Media) Or !editMode, Parent.Default, AddPicture1.Media)
                     PressedBorderColor: =RGBA(0, 0, 0, 0)
                     PressedFill: =RGBA(0, 0, 0, 0)
                     Tooltip: =Parent.DisplayName
